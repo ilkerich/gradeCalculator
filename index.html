@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student Results</title>
+</head>
+<body>
+	<h1>Student Results</h1>
+	<form>
+		<label for="numSubjects">How many subjects did you take?</label><br>
+		<input type="number" id="numSubjects" name="numSubjects"><br><br>
+		<div id="marks"></div>
+		<br>
+		<button type="button" onclick="addMarks()">Add Marks</button>
+		<button type="button" onclick="calculateResults()">Calculate Results</button>
+	</form>
+	<script>
+		function addMarks() {
+			let numSubjects = document.getElementById("numSubjects").value;
+			let marksDiv = document.getElementById("marks");
+			marksDiv.innerHTML = "";
+			for (let i = 1; i <= numSubjects; i++) {
+				let label = document.createElement("label");
+				label.for = "subject" + i;
+				label.textContent = "Enter marks for Subject " + i + ": ";
+				let input = document.createElement("input");
+				input.type = "number";
+				input.id = "subject" + i;
+				input.name = "subject" + i;
+				input.required = true;
+				input.min = 0;
+				input.max = 100;
+				marksDiv.appendChild(label);
+				marksDiv.appendChild(input);
+				marksDiv.appendChild(document.createElement("br"));
+			}
+		}
+		function calculateResults() {
+			let numSubjects = document.getElementById("numSubjects").value;
+			let totalMarks = 0;
+			for (let i = 1; i <= numSubjects; i++) {
+				let subjectMarks = document.getElementById("subject" + i).value;
+				totalMarks += parseInt(subjectMarks);
+			}
+			let averageMarks = totalMarks / numSubjects;
+			let grade = "";
+			if (averageMarks >= 90) {
+				grade = "A";
+			} else if (averageMarks >= 80) {
+				grade = "B";
+			} else if (averageMarks >= 70) {
+				grade = "C";
+			} else if (averageMarks >= 60) {
+				grade = "D";
+			} else if (averageMarks >= 50) {
+				grade = "E";
+			} else {
+				grade = "F";
+			}
+			alert("Your average marks is " + averageMarks.toFixed(2) + " and your grade is " + grade);
+		}
+	</script>
+</body>
+</html>
